@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ShowInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:id="@+id/Tex01"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="1"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/car_empty_background"/>
+
+        <TextView
+            android:id="@+id/Tex02"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="2"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/car_empty_background"/>
+
+        <TextView
+            android:id="@+id/Tex03"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="3"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/car_empty_background"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:id="@+id/Tex04"
+            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="4"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/car_empty_background"/>
+
+        <TextView
+            android:id="@+id/Tex05"
+            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="5"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/car_empty_background"/>
+
+        <TextView
+            android:id="@+id/Tex06"
+            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="6"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/car_empty_background"/>
+
+    </LinearLayout>
+
+</LinearLayout>
