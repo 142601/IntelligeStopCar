@@ -179,8 +179,8 @@ public class AfterLoginActivity extends AppCompatActivity {
             @Override
             public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
                 //创建DrivingRouteOverlay实例
-                try {
-                    DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaiduMap);
+                DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaiduMap);
+                try{
                     if (drivingRouteResult.getRouteLines().size() > 0) {
                         //获取路径规划数据,(以返回的第一条路线为例）
                         //为DrivingRouteOverlay实例设置数据
@@ -188,7 +188,7 @@ public class AfterLoginActivity extends AppCompatActivity {
                         //在地图上绘制DrivingRouteOverlay
                         overlay.addToMap();
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (NullPointerException e) {
                     throw e;
                 }
             }

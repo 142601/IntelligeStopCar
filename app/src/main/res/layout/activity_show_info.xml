@@ -9,89 +9,157 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <!-- android:background="@drawable/car_empty_background" -->
 
         <TextView
-            android:id="@+id/Tex01"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
+            android:id="@+id/Tex01"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:textSize="40sp"
+            android:background="#64C251"
             android:gravity="center"
-            android:text="1"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/car_empty_background"/>
+            android:text="@string/one"
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/Tex02"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_weight="1"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:text="2"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@drawable/car_empty_background"/>
+            android:layout_weight="1"
+            android:background="#64C251"
+            android:gravity="center"
+            android:text="@string/two"
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/Tex03"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="24dp"
             android:layout_weight="1"
-            android:textSize="40sp"
+            android:background="#64C251"
             android:gravity="center"
-            android:text="3"
+            android:text="@string/three"
+            android:textSize="40sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Lin2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Tex04"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:background="#64C251"
+            android:gravity="center"
+            android:text="@string/four"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/Tex05"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/car_empty_background"/>
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:background="#64C251"
+            android:gravity="center"
+            android:text="@string/five"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/Tex06"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="24dp"
+            android:layout_weight="1"
+            android:background="#64C251"
+            android:gravity="center"
+            android:text="@string/six"
+            android:textSize="40sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_marginTop="40dp">
+        android:layout_marginStart="20dp">
 
         <TextView
-            android:id="@+id/Tex04"
-            android:layout_height="80dp"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:text="4"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/car_empty_background"/>
+            android:id="@+id/Txt01"
+            android:layout_width="30dp"
+            android:layout_height="32dp"
+            android:background="#64C251" />
 
         <TextView
-            android:id="@+id/Tex05"
-            android:layout_height="80dp"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:text="5"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/car_empty_background"/>
 
-        <TextView
-            android:id="@+id/Tex06"
-            android:layout_height="80dp"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:text="6"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/car_empty_background"/>
+            android:layout_height="wrap_content"
+            android:text="@string/Car_full_txt"
+            android:textSize="30sp" />
+
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp">
+
+        <TextView
+            android:id="@+id/Txt02"
+            android:layout_width="30dp"
+            android:layout_height="32dp"
+            android:background="#64C251" />
+
+        <TextView
+            android:id="@+id/Txt04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/car_empty_txt"
+            android:textSize="30sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp">
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/go_to"
+            android:textSize="30sp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
