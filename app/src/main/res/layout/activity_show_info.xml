@@ -153,6 +153,7 @@
 
 
         <Button
+            android:id="@+id/Button_OK_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/go_to"

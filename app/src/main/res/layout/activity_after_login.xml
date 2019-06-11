@@ -16,13 +16,24 @@
         android:layout_height="match_parent">
 
         <ImageButton
+            android:id="@+id/Image02"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/button_background"
+            android:src="@mipmap/aiset"/>
+
+        <ImageButton
             android:id="@+id/Image01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="40dp"
-            android:background="@mipmap/dingwei" />
+            android:background="@drawable/button_background"
+            android:src="@mipmap/dingwei"/>
 
     </RelativeLayout>
 

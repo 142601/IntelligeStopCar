@@ -16,13 +16,20 @@
     <string name="password_hint">请输入密码</string>
     <string name="Button_longup">注册</string>
     <string name="Button_longin">登录</string>
+    <string name="set">设置</string>
 
     <!-- activity_logup_main -->
     <string name="logup_information">
         非常抱歉，暂未开启注册！！
     </string>
-    <string name="Car_full_txt" >此处没有车</string>
+    <string name="Car_full_txt">此处没有车</string>
     <string name="car_empty_txt">此处有车位</string>
     <string name="go_to">到这儿去</string>
+    <string name="title_activity_setting_aty">SettingAty</string>
+
+    <!-- activity_setting-->
+    <string name="ip_name">ip地址</string>
+    <string name="ip_port">端口</string>
+    <string name="OK" >确定</string>
 
 </resources>

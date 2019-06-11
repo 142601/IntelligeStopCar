@@ -1,9 +1,13 @@
 package com.red;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -17,8 +21,10 @@ import java.util.ArrayList;
 
 public class ShowInfoActivity extends AppCompatActivity implements Runnable{
 
+    final private String TAG = "ShowInfoActivity";
     // 创建文本引用，
     private TextView car1,car2,car3,car4,car5,car6;
+    private Button btOk;
     // socket 的ip端口,通过其他的activity传递
     private String HOST;
     private int PORT;
@@ -40,6 +46,7 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
         setContentView(R.layout.activity_show_info);
 
         // 引用View
+        btOk = findViewById(R.id.Button_OK_info);
         car1 = findViewById(R.id.Tex01);
         car2 = findViewById(R.id.Tex02);
         car3 = findViewById(R.id.Tex03);
@@ -57,6 +64,13 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
         new Thread() {
             public void run () {
                 try{
+                    //获得ip
+                    IpInfo ip = new IpInfo(ShowInfoActivity.this);
+                    ip.update();
+                    HOST = ip.getIpAdd();
+                    PORT = ip.getIpPort();
+                    Log.i(TAG,ip.getIpAdd() + ": " + ip.getIpPort());
+                    Log.i(TAG,HOST + " " + PORT);
                     //创建链接输入输出流
                     socket = new Socket(HOST,PORT);
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
@@ -68,6 +82,16 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
             }
         }.start();
 
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("carDriveDemo",true);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
+
         carHandler(carData,arrayList);
 
         new Thread(ShowInfoActivity.this).start();
@@ -77,19 +101,25 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
     public void run() {
 
         try {
-            // 发送信息请求车位数据
-            if (flagOfAsk && socket.isConnected()) {
-                flagOfAsk = false;
-                if (!socket.isOutputShutdown()) {
-                    out.println(askData);
-                }
+            if (socket.isConnected())
 
-            }
-            // 接受数据
-            if (!flagOfAsk && socket.isConnected() && !socket.isInputShutdown()) {
-                carData = in.readLine();
-            }
-        } catch (IOException e) {
+                try {
+                    // 发送信息请求车位数据
+                    if (flagOfAsk) {
+                        flagOfAsk = false;
+                        if (!socket.isOutputShutdown()) {
+                            out.println(askData);
+                        }
+
+                    }
+                    // 接受数据
+                    if (!flagOfAsk && !socket.isInputShutdown()) {
+                        carData = in.readLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        } catch (NullPointerException e){
             e.printStackTrace();
         }
     }
@@ -109,8 +139,12 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
         String[] strings = carDemoLast.split(";");
         int index = 0;
         for (int i =0; i <= strings.length; i++) {
-            index = Integer.parseInt(strings[2 * i + 1]);
-            if(Integer.parseInt(strings[index+1]) == 1) {
+            try {
+                index = Integer.parseInt(strings[2 * i + 1]);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            if(Integer.parseInt(strings[index+1]) == 0) {
                 arrayList.get(index).setBackground(fullColor);
             } else {
                 arrayList.get(index).setBackground(emptyColor);

@@ -1,6 +1,7 @@
 package com.red;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,8 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -36,12 +39,14 @@ import com.baidu.mapapi.search.route.WalkingRouteResult;
 public class AfterLoginActivity extends AppCompatActivity {
 
     private MapView mMapView = null;
-    private ImageButton btLocationCfg;
+    private ImageButton btLocationCfg,btSet;
     private BaiduMap mBaiduMap = null;
     private LocationClient mLocationClient =null;
     private String TAG = "AfterLoginActivity";
     private RoutePlanSearch mSearch;
     private LatLng mpoint,point;//设置我的位置与唯一设备位置
+    private Boolean firstMap = true; //是否第一次看
+    private Boolean flagStartCarDrive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class AfterLoginActivity extends AppCompatActivity {
 
         mMapView = findViewById(R.id.bmapView);
         btLocationCfg = findViewById(R.id.Image01);
+        btSet = findViewById(R.id.Image02);
 
         mBaiduMap = mMapView.getMap();
 
@@ -94,11 +100,15 @@ public class AfterLoginActivity extends AppCompatActivity {
                         .latitude(latitude)
                         .longitude(longitude)
                         .build();
-                //移动地图到定位的位置
-               /* LatLng xy = new LatLng(latitude,
-                        longitude);
-                MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
-                mBaiduMap.animateMapStatus(status);*/
+
+                //第一次打开Activity移动地图到定位的位置
+                if(firstMap) {
+                    firstMap = false;
+                    LatLng xy = new LatLng(latitude,
+                            longitude);
+                    MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
+                    mBaiduMap.animateMapStatus(status);
+                }
                 // 设置定位数据
                 mBaiduMap.setMyLocationData(locData);
             }
@@ -128,7 +138,7 @@ public class AfterLoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AfterLoginActivity.this,
                         ShowInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 return true;
             }
         });
@@ -151,10 +161,26 @@ public class AfterLoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 //驾车路线规划
-                carDrvieDemo();
+                //carDrvieDemo();
             }
         });
         /*----------------------设置定位模式-------------------------------------------------------*/
+
+        /*if(flagStartCarDrive) {
+            flagStartCarDrive = false;
+            carDrvieDemo();
+        }*/
+
+        /*----------------------打开ip设置界面-----------------------------------------------------*/
+        btSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AfterLoginActivity.this,
+                        SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+        /*----------------------------------------------------------------------------------------*/
     }
 
     protected void carDrvieDemo() {
@@ -235,5 +261,22 @@ public class AfterLoginActivity extends AppCompatActivity {
         mMapView.onDestroy();
         mMapView = null;
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case 1:
+                if(resultCode == RESULT_OK) {
+                    flagStartCarDrive = data.getBooleanExtra("carDriveDemo",false);
+                    if(flagStartCarDrive) {
+                        flagStartCarDrive = false;
+                        carDrvieDemo();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

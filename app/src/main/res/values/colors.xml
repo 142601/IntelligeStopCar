@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorCarFull">#C42121</color>
     <color name="colorCarEmpty">#64C251</color>
+    <color name="dingwei">#ffffff</color>
 </resources>
