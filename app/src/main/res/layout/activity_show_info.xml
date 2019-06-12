@@ -108,7 +108,7 @@
             android:id="@+id/Txt01"
             android:layout_width="30dp"
             android:layout_height="32dp"
-            android:background="#64C251" />
+            android:background="@color/colorCarFull" />
 
         <TextView
 
@@ -131,7 +131,7 @@
             android:id="@+id/Txt02"
             android:layout_width="30dp"
             android:layout_height="32dp"
-            android:background="#64C251" />
+            android:background="@color/colorCarEmpty" />
 
         <TextView
             android:id="@+id/Txt04"

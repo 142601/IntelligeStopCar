@@ -25,6 +25,7 @@
 
     <application
         android:name=".DemoApplication"
+        android:label="@string/app_name"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
