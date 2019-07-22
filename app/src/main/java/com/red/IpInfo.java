@@ -1,3 +1,8 @@
+/**
+ * 此类用于更新文本框的显示具有以下功能：
+ * 1.保存此次输入的文本框的信息
+ * 2.实施更新文本框的内容
+ */
 package com.red;
 
 import android.content.Context;
@@ -13,6 +18,7 @@ import java.io.OutputStreamWriter;
 
 public class IpInfo {
 
+    //文本框上要显示的内容 ipAdd,ipPort
     private String ipAdd;
     private int ipPort;
     private Context context;
