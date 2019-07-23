@@ -67,6 +67,7 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
 
         IpInfo ipInfo = new IpInfo(ShowInfoActivity.this);
 
+        CarSocketTheard.carData = null;
         flageOfclose = false;
 
         carSockerConnect = new CarSocketTheard(ipInfo);

@@ -16,6 +16,9 @@ public class CarSocketTheard extends Thread {
 
     public static String carData = null;// 数据！！！！
 
+    // 接收缓存区
+    private char[] receiveBuf = new char[30];
+
     private Socket socket;
     // socket 的ip端口,通过其他的activity传递
     private String HOST;
@@ -27,6 +30,9 @@ public class CarSocketTheard extends Thread {
     // socket 的接收器
     private BufferedReader in = null;
     private PrintWriter out = null;
+
+    //信息结束标记e
+    private char endchar = 'e';
 
     // ip地址信息,从contex获取
     private IpInfo ip;
@@ -43,6 +49,8 @@ public class CarSocketTheard extends Thread {
 
         boolean flagOfreceive = true;
 
+        int theNumberOfconnect = 0;
+
         while (flagOfreceive) {
             if(ShowInfoActivity.flageOfclose) {
 
@@ -58,32 +66,72 @@ public class CarSocketTheard extends Thread {
                 if (socket.isConnected()) {
                     // 发送信息请求车位数据
                     if (flagOfAsk) {
-                        flagOfAsk = false;
+
                         if (!socket.isOutputShutdown()) {
 //                            socket.getOutputStream().write(askData.getBytes("UTF-8"));
                             out.println(askData);
-                            flagOfAsk = false;
+
                             Log.d("CarSocketThread","已经发送完数据");
+                            flagOfAsk = false;
 //                        out.println(askData);
                         }
                     }
                     // 接受数据
-                    if (!flagOfAsk && !socket.isInputShutdown()) {
+                    if (!flagOfAsk ) {
 
-                        Log.d("CarSocketThread","正在接收数据中");
+//                        flagOfAsk = true;
 
-                        carData = in.readLine();
-                        Log.d("CarSocketThread","接收到数据 carData = " + carData);
-                        flagOfAsk = true;
-                        if ((carData != null) && (carData.startsWith("d"))) {
-                            flagOfreceive = false;
-                            flagOfAsk = false;
-                        } else {
-                            carData = null;
+                        if(!socket.isInputShutdown()) {
+
+                            Log.d("CarSocketThread","正在接收数据中");
+
+                            in.read(receiveBuf,0,1);
+                            Log.d("CarSocketThread","接收到数据 firstcarData = " + receiveBuf[0]);
+
+                            if(receiveBuf[0] == 'd') {
+
+                                int indexOfBuf = 1;
+                                boolean flagOfreceiveOK = false;
+
+                                while(true){
+                                    in.read(receiveBuf,indexOfBuf,1);
+                                    if(indexOfBuf > 29 ){
+                                        break;
+                                    }
+
+                                    if(receiveBuf[indexOfBuf] == endchar){
+                                        flagOfreceiveOK = true;
+                                        break;
+                                    }
+
+                                    indexOfBuf ++;
+                                }
+
+                                if(flagOfreceiveOK) {
+                                    carData = new String(receiveBuf);
+//                                    Log.d("CarSocketThread","接收到数据 carData = " );
+
+//                                    for(int a = 0;a <= indexOfBuf;a ++) {
+//                                        Log.d("CarSocketThread"," " + receiveBuf[a]);
+//                                    }
+
+                                    if ((carData != null) && (carData.startsWith("d"))) {
+                                        flagOfreceive = false;
+                                        flagOfAsk = false;
+                                    } else {
+                                        carData = null;
+                                    }
+                                }
+                            }
                         }
+
                     }
                 } else {
                     Log.d("CarSocketThread","正在重新连接....");
+                    theNumberOfconnect ++;
+                    if(theNumberOfconnect > 100){
+                        break;
+                    }
                     this.connect();
                     Log.d("CarSocketThread","连接成功");
                 }
@@ -119,7 +167,7 @@ public class CarSocketTheard extends Thread {
 
             Log.d("CarSocketThread","正在连接中....");
 
-            this.socket.connect(socket, 3000);
+            this.socket.connect(socket, 1000);
 
             Log.d("CarSocketThread","连接成功");
 
