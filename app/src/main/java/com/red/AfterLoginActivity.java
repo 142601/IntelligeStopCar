@@ -87,7 +87,7 @@ public class AfterLoginActivity extends AppCompatActivity {
                 //获取经纬度
                 double latitude = bdLocation.getLatitude();    //获取纬度信息
                 double longitude = bdLocation.getLongitude();    //获取经度信息
-                Log.i(TAG,"经度:" + longitude + "," + "维度" + latitude);
+//                Log.i(TAG,"经度:" + longitude + "," + "维度" + latitude);
                 mpoint = new LatLng(latitude,longitude);
                 //Toast.makeText(AfterLoginActivity.this,"经度:" + longitude + " 纬度: "
                 //        + latitude,Toast.LENGTH_SHORT).show();

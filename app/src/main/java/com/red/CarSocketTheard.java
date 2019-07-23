@@ -1,5 +1,7 @@
 package com.red;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -42,24 +44,38 @@ public class CarSocketTheard extends Thread {
         boolean flagOfreceive = true;
 
         while (flagOfreceive) {
+            if(ShowInfoActivity.flageOfclose) {
+
+                Log.d("CarSocketThread","子线程已关闭");
+
+                break;
+            }
+
+            Log.d("CarSocketThread","子线程正在运行");
+
             try {
 
                 if (socket.isConnected()) {
                     // 发送信息请求车位数据
                     if (flagOfAsk) {
                         flagOfAsk = false;
-//                        if (!socket.isOutputShutdown()) {
+                        if (!socket.isOutputShutdown()) {
 //                            socket.getOutputStream().write(askData.getBytes("UTF-8"));
-                        out.println(carData);
-//                        }
+                            out.println(askData);
+                            flagOfAsk = false;
+                            Log.d("CarSocketThread","已经发送完数据");
+//                        out.println(askData);
+                        }
                     }
                     // 接受数据
-//                    if (!flagOfAsk && !socket.isInputShutdown()) {
-                    if (!flagOfAsk ) {
+                    if (!flagOfAsk && !socket.isInputShutdown()) {
+
+                        Log.d("CarSocketThread","正在接收数据中");
 
                         carData = in.readLine();
+                        Log.d("CarSocketThread","接收到数据 carData = " + carData);
                         flagOfAsk = true;
-                        if (carData.startsWith("d")) {
+                        if ((carData != null) && (carData.startsWith("d"))) {
                             flagOfreceive = false;
                             flagOfAsk = false;
                         } else {
@@ -67,7 +83,9 @@ public class CarSocketTheard extends Thread {
                         }
                     }
                 } else {
+                    Log.d("CarSocketThread","正在重新连接....");
                     this.connect();
+                    Log.d("CarSocketThread","连接成功");
                 }
 
             } catch (NullPointerException e) {
@@ -83,6 +101,8 @@ public class CarSocketTheard extends Thread {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -96,7 +116,12 @@ public class CarSocketTheard extends Thread {
             //创建链接输入输出流
             socket = new Socket();
             SocketAddress socket = new InetSocketAddress(HOST, PORT);
+
+            Log.d("CarSocketThread","正在连接中....");
+
             this.socket.connect(socket, 3000);
+
+            Log.d("CarSocketThread","连接成功");
 
             in = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), "UTF-8"));
             out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,7 +26,9 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
     // 创建文本框列表
     private ArrayList<TextView> arrayList = new ArrayList<>();
     // 获得数据
-    private String carData = null;
+    private String carData = " ";
+
+    public static boolean flageOfclose = false;
 
     CarSocketTheard carSockerConnect;
 
@@ -62,9 +65,11 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
             }
         });
 
-        IpInfo ip = new IpInfo(ShowInfoActivity.this);
+        IpInfo ipInfo = new IpInfo(ShowInfoActivity.this);
 
-        carSockerConnect = new CarSocketTheard(ip);
+        flageOfclose = false;
+
+        carSockerConnect = new CarSocketTheard(ipInfo);
 
         carSockerConnect.start();
 
@@ -103,17 +108,27 @@ public class ShowInfoActivity extends AppCompatActivity implements Runnable{
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void run() {
+        while(true){
+            Log.d(TAG,"正在运行主线程");
+            if((carData = CarSocketTheard.carData)!= null) {
+                if(carData.startsWith("d")) {
+                    carHandler(carData, arrayList);
+                    break;
+                }
+            }
+
+            if(flageOfclose){
+                break;
+            }
+        }
+
+        Log.d(TAG,"主线程已关闭");
     }
 
     @Override
-    public void run() {
-        while(true){
-            carData = CarSocketTheard.carData;
-            if(carData != null && carData.startsWith("d")){
-                carHandler(carData,arrayList);
-            }
-        }
+    protected void onDestroy() {
+        flageOfclose = true;
+        super.onDestroy();
     }
 }
