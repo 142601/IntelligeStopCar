@@ -32,4 +32,7 @@
     <string name="ip_port">端口</string>
     <string name="OK" >确定</string>
 
+    <string name="car_posion">车位号</string>
+    <string name="car_status">车位状态</string>
+
 </resources>
